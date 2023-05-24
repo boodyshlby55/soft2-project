@@ -1,6 +1,10 @@
 import addDepartment from "../models/addDepartment.js";
+import addSubject from "../models/addSubject.js";
 import createStudent from "../models/createStudent.js";
+import studentSubject from '../models/studentSubject.js'
 import bcrypt from 'bcryptjs';
+
+// systemUser
 
 export const savestudent = async (req, res) => {
     const { first_name, last_name, academic_number, department, username, password } = req.body;
@@ -83,4 +87,35 @@ export const deleteStudent = async (req, res) => {
     const { _id } = req.params;
     await createStudent.findByIdAndDelete(_id);
     return res.redirect("/admin/students");
+}
+
+// student
+
+export const homeStudent = async (req, res) => {
+    const subjects = await studentSubject.find({ student: req.studentUser._id }).populate('student').populate('subject').lean()
+    res.render("student",
+        {
+            subjects, title: 'Home', home: '/student',
+            display5: 'd-none', display1: 'd-none', display2: 'd-none', display3: 'd-none', display4: 'd-none',
+        })
+}
+
+export const joinSubject = async (req, res) => {
+    const subject = await addSubject.find().populate('department').populate('staff').lean()
+    res.render("joinSubject",
+        {
+            subject, title: 'Join Subject', home: '/student',
+            display5: 'd-none', display1: 'd-none', display2: 'd-none', display3: 'd-none', display4: 'd-none',
+        })
+}
+
+export const savestudentSubject = async (req, res) => {
+    const { student, subject } = req.body;
+    await studentSubject.create({
+        student: req.studentUser._id,
+        subject,
+    })
+
+
+    res.redirect("/student")
 }

@@ -1,0 +1,52 @@
+<br><br>
+{{!-- <div class="container shadow rounded">
+    <table class="table table-hover text-center mx-auto ">
+        <thead>
+            <tr class="table-secondary">
+                <th scope="col">#</th>
+                <th scope="col">Code</th>
+                <th scope="col">Subjects</th>
+                <th scope="col">Department</th>
+                <th scope="col">previous Subject</th>
+                <th scope="col">Staff</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each subject}}
+            <tr>
+                <th scope="row">#</th>
+                <td>{{code}}</td>
+                <td>{{name}}</td>
+                <td>{{department.name}}</td>
+                <td>{{previous_subject}}</td>
+                <td>{{staff.first_name}} {{staff.last_name}}</td>
+                <td>
+                    <form action="/student/joinSubject" method="post">
+                        <button class="btn btn-success p-1" title="add">
+                            <li class="fa-solid fa-plus fs-5"></li>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div> --}}
+
+<br><br>
+<div class="container w-50 border-3 shadow p-3 mb-5 bg-white rounded">
+    <h1 class="text-center text-capitalize">Add Subject</h1>
+    <form action="/student/joinSubject" method="post" class="my-5 text-capitalize">
+        <div class="mb-5">
+            <label for="Subject" class="form-label">Subjects</label>
+            <select name="subject" id="Subject" class="form-select">
+                {{#each subject}}
+                <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Join</button>
+        <a href="/student" class="btn btn-danger">Cancel</a>
+    </form>
+</div>
