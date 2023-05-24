@@ -1,5 +1,10 @@
 import createStaff from "../models/createStaff.js";
+import addSubject from "../models/addSubject.js";
+import studentSubject from '../models/studentSubject.js'
 import bcrypt from 'bcryptjs';
+import multer from "multer";
+
+// systemUser Route
 
 export const savestaff = async (req, res) => {
     const { first_name, last_name, username, password } = req.body;
@@ -75,3 +80,48 @@ export const deleteStaff = async (req, res) => {
     await createStaff.findByIdAndDelete(_id);
     return res.redirect("/admin/staffs");
 }
+
+
+// staff Route
+
+export const homeStaff = async (req, res) => {
+    const subjects = await addSubject.find({ staff: req.staffUser._id }).populate('staff').lean()
+    res.render("staff",
+        {
+            subjects, title: 'Home', home: '/staff',
+            display5: 'd-none', display1: 'd-none', display2: 'd-none', display3: 'd-none', display4: 'd-none',
+        })
+}
+
+export const subjectInfo = async (req, res) => {
+    // const subjects = await addSubject.find({ staff: req.staffUser._id }).populate('staff').lean()
+    const { _id } = req.params;
+    const subject = await addSubject.findById(_id).lean()
+    res.render("subjectInfo",
+        {
+            subject, title: 'Subject', home: '/staff',
+            display5: 'd-none', display1: 'd-none', display2: 'd-none', display3: 'd-none', display4: 'd-none',
+        })
+}
+
+export const showSubjectStudents = async (req, res) => {
+    const { _id } = req.params;
+    const students = await studentSubject.find({ subject: _id }).populate('student').populate('subject').lean()
+    res.render("subjectStudents",
+        {
+            students, title: 'Subject Students', home: '/staff',
+            display5: 'd-none', display1: 'd-none', display2: 'd-none', display3: 'd-none', display4: 'd-none',
+        })
+}
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
+});
+
+export const upload = multer({ storage: storage });
