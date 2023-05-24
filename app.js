@@ -2,11 +2,13 @@
 import express from "express"
 import { engine } from 'express-handlebars';
 import mongoose from "mongoose";
+import multer from "multer";
 import dotenv from "dotenv";
 import methodOverride from 'method-override';
 import loginRouter from './routes/loginForm.js'
 import adminRouter from './routes/systemUser.js'
 import staffRouter from './routes/staff.js'
+import studentRouter from './routes/student.js'
 import cookieParser from "cookie-parser";
 import { adminAccessLogin, staffAccessLogin, studentAccessLogin } from "./middleware/accessLogin.js";
 
@@ -30,9 +32,7 @@ app.get('/', (req, res) => {
 app.use('/login', loginRouter)
 app.use('/admin', adminAccessLogin, adminRouter)
 app.use('/staff', staffAccessLogin, staffRouter)
-app.get('/student', studentAccessLogin, (req, res) => {
-    res.render("student")
-})
+app.use('/student', studentAccessLogin, studentRouter)
 
 app.listen(process.env.port, () => {
     console.log(`Example app listening on port ${process.env.port}`)

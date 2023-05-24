@@ -17,7 +17,8 @@
             {{#each students}}
             <tr>
                 <th scope="row">#</th>
-                <td>{{first_name}} {{last_name}}</td>
+                <td><a class="link-secondary link-color text-decoration-none"
+                        href="/admin/students/{{_id}}">{{first_name}} {{last_name}}</a></td>
                 <td>{{academic_number}}</td>
                 <td>{{department.name}}</td>
                 <td>{{username}}</td>
