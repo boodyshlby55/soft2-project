@@ -1,0 +1,17 @@
+<br><br><br><br><br><br>
+<div class="container w-50 border-3 shadow p-3 mb-5 bg-white rounded">
+    <h1 class="text-center text-capitalize">Join to Subject</h1>
+    <form action="/student/joinSubject" method="post" class="my-5 text-capitalize">
+        <div class="mb-5">
+            <label for="Subject" class="form-label">Subjects</label>
+            <select name="subject" id="Subject" class="form-select">
+                {{#each subject}}
+                <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Join</button>
+        <a href="/student" class="btn btn-danger">Cancel</a>
+    </form>
+</div>
+<br><br><br><br><br>

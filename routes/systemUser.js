@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { addDepartments, showdepartments, savedept, editDepartment, updateDepartment, deleteDepartment } from "../controllers/departments.js";
 import { savesubject, addsubject, showsubject, editsubject, updateSubject, deleteSubject } from "../controllers/subjects.js";
-import { createstudent, deleteStudent, editStudent, savestudent, showstudents, updateStudent } from "../controllers/students.js";
+import { createstudent, deleteStudent, editStudent, savestudent, showstudentSubjects, showstudents, updateStudent } from "../controllers/students.js";
 import { createstaff, deleteStaff, editStaff, savestaff, showstaffs, updateStaff } from "../controllers/staffs.js";
 import { admin } from "../controllers/adminHome.js";
 import { AddAdmin, deleteAdmin, editAdmin, saveAdmin, showAdmins, updateAdmin } from "../controllers/admins.js";
@@ -45,9 +45,11 @@ router.delete('/staffs/:_id', deleteStaff)
 router.get('/createStudent', createstudent)
 router.post('/createStudent', savestudent)
 router.get('/students', showstudents)
+router.get('/students/:_id', showstudentSubjects)
 router.get('/students/:_id/edit', editStudent)
 router.put('/students/:_id', updateStudent)
 router.delete('/students/:_id', deleteStudent)
+// router.delete('/students/:_id', deleteStudentSubject)
 
 
 export default router;
