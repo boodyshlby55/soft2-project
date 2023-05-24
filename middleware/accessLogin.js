@@ -7,7 +7,7 @@ export const adminAccessLogin = (req, res, next) => {
         // console.log(userInformations);
         next();
     } catch (err) {
-        return res.send('<h1>Bad Informations</h1>')
+        return res.redirect('/')
     }
 }
 
@@ -15,10 +15,11 @@ export const staffAccessLogin = (req, res, next) => {
     const { staffToken } = req.cookies;
     try {
         const userInformations = Jwt.verify(staffToken, 'adrmy')
+        req.staffUser = userInformations;
         // console.log(userInformations);
         next();
     } catch (err) {
-        return res.send('<h1>Bad Informations</h1>')
+        return res.redirect('/')
     }
 }
 
@@ -26,9 +27,10 @@ export const studentAccessLogin = (req, res, next) => {
     const { studentToken } = req.cookies;
     try {
         const userInformations = Jwt.verify(studentToken, 'adrmy')
+        req.studentUser=userInformations;
         // console.log(userInformations);
         next();
     } catch (err) {
-        return res.send('<h1>Bad Informations</h1>')
+        return res.redirect('/')
     }
 }

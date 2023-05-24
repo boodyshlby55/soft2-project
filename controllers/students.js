@@ -1,6 +1,9 @@
 import addDepartment from "../models/addDepartment.js";
+import addSubject from "../models/addSubject.js";
 import createStudent from "../models/createStudent.js";
 import bcrypt from 'bcryptjs';
+
+// systemUser
 
 export const savestudent = async (req, res) => {
     const { first_name, last_name, academic_number, department, username, password } = req.body;
@@ -83,4 +86,15 @@ export const deleteStudent = async (req, res) => {
     const { _id } = req.params;
     await createStudent.findByIdAndDelete(_id);
     return res.redirect("/admin/students");
+}
+
+// student
+
+export const homeStudent = async (req, res) => {
+    // const subjects = await addSubject.find({ staff: req.staffUser._id }).populate('staff').lean()
+    res.render("student",
+        {
+            title: 'Home', home: '/student',
+            display5: 'd-none', display1: 'd-none', display2: 'd-none', display3: 'd-none', display4: 'd-none',
+        })
 }
